@@ -9,3 +9,9 @@ So in the meantime this shell script will do.
 ## Generated OpenApi Definitions
 
 Can be found under: [OpenApiDefinitions](./OpenApiDefinitions)
+
+### Usage
+```sh
+docker build -t keycloak-openapi .
+docker run -it --rm -v $PWD/OpenApiDefinitions:/output keycloak-openapi
+```

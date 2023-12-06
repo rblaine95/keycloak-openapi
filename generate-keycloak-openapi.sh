@@ -1,11 +1,19 @@
 ﻿#!/usr/bin/env bash
+
 mkdir /output
-mkdir /keycloak
-git clone -c core.symlinks=true https://github.com/keycloak/keycloak.git
+
+git clone \
+    --config core.symlinks=true \
+    --depth 1 \
+    --branch ${VERSION} \
+    https://github.com/keycloak/keycloak.git
+
 cd /keycloak
-git fetch --all --tags
-git checkout tags/23.0.0
 ./mvnw -pl quarkus/deployment,quarkus/dist -am -DskipTests clean install
+
 cd services
 mvn -s ../maven-settings.xml -Pjboss-release -DskipTests clean package
-cp -R ./target/apidocs-rest/swagger/apidocs /output
+
+cp -R ./target/apidocs-rest/swagger/apidocs/* /output
+mv /output/openapi.json /output/keycloak-${VERSION}.json
+mv /output/openapi.yaml /output/keycloak-${VERSION}.yaml
