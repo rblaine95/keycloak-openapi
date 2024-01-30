@@ -7,6 +7,6 @@ RUN apt-get install -y maven
 COPY generate-keycloak-openapi.sh .
 RUN chmod a+x /generate-keycloak-openapi.sh
 
-ENV VERSION 23.0.4
+ENV VERSION 23.0.5
 
 CMD "/generate-keycloak-openapi.sh"
